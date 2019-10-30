@@ -1,0 +1,32 @@
+{
+  "name": "wack-a-mole-multiplayer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauriciabad/Wack-A-Mole-Multiplayer.git"
+  },
+  "keywords": [
+    "socket.io",
+    "JavaScript",
+    "Node.js",
+    "Wack A Mole",
+    "Workshop",
+    "Fontys ICT",
+    "Proxy"
+  ],
+  "author": "Maurici Abad Gutierrez",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/mauriciabad/Wack-A-Mole-Multiplayer/issues"
+  },
+  "homepage": "https://github.com/mauriciabad/Wack-A-Mole-Multiplayer#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
