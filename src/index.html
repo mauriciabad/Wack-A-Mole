@@ -5,12 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Wack A Mole Multiplayer</title>
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#73B46E">
 </head>
 <body>
+
+  <div class="score"><span id="score">210</span><span class="score__small"> pts.</span></div>
   
+  <div class="grid">
+    <div class="hole" id="hole0">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole0">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole1">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole2">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole3">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole4">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole5">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole6">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+    <div class="hole" id="hole7">
+      <img class="hole__img" src="img/mole-face-outline.svg" alt="🦔">
+      <img class="hole__img" src="img/bunny.svg" alt="🐇">
+    </div>
+  </div>
   
   <script src="/socket.io/socket.io.js"></script>
-  <script src="js/main.js" defer></script>
+  <script src="/src/js/main.js" defer></script>
 </body>
 </html>
