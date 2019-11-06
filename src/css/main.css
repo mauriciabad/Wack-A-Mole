@@ -17,7 +17,7 @@ body{
   
   font-family: 'Luckiest Guy', cursive;
   background-color: var(--green);
-  cursor: url(/src/img/hammer.cur), auto;
+  cursor: url(../img/hammer.cur), auto;
   user-select: none;
 }
 
