@@ -1,3 +1,20 @@
+/* --- Body --- */
+body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+  font-family: 'Luckiest Guy', cursive;
+  background-color: var(--green);
+  cursor: url(../img/hammer.cur), auto;
+  user-select: none;
+  box-sizing: border-box;
+}
 /* --- Grid & Holes --- */
 .grid {
   --wide-size: calc(100vh - 8rem);
