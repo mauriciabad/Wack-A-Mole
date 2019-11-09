@@ -42,7 +42,7 @@ for (let i = 0; i < 3; i++) {
         game.holes[holeNumber] = { content: 'none', smashedBy: [] };
       }, duration);
     }
-  }, 100 + Math.random() * 2400);
+  }, 100 + Math.random() * 2900);
 
 }
 
