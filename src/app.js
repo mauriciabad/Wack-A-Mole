@@ -31,7 +31,7 @@ for (let i = 0; i < 3; i++) {
   setInterval(() => {
     let holeNumber = Math.floor(Math.random() * 9);
     let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
-    let duration = 300 + Math.random() * 700;
+    let duration = 300 + Math.random() * 900;
     
     if(game.holes[holeNumber].content === 'none'){
       game.holes[holeNumber] = { content, smashedBy: [] };
@@ -42,7 +42,7 @@ for (let i = 0; i < 3; i++) {
         game.holes[holeNumber] = { content: 'none', smashedBy: [] };
       }, duration);
     }
-  }, 100 + Math.random() * 2900);
+  }, 100 + Math.random() * 3100);
 
 }
 
