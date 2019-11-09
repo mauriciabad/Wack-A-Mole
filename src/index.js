@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('smash', (holeNumber) => {
-    let hole = gameState.holes[holeNumber];
+    let hole = game.holes[holeNumber];
     
     if(!hole.smashedBy.includes(socket.id)){
       let points = 0;
@@ -50,6 +50,8 @@ io.on('connection', (socket) => {
       }
 
       hole.smashedBy.push(socket.id);
+
+      socket.emit('variateScore', points);
     }
   });
 
@@ -58,6 +60,18 @@ io.on('connection', (socket) => {
 
     delete game.players[socket.id];
   });
+
+
+  setInterval(() => {
+    let holeNumber = Math.floor(Math.random() * 9);
+    let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
+    let duration = 500 + Math.random() * 1000;
+  
+    game.holes[holeNumber] = { content, smashedBy: [] };
+  
+    socket.broadcast.emit('spawn', {holeNumber, content, duration})
+  
+  }, 500 + Math.random() * 2000);
 });
 
 // TODO: Add the logic of spawning
