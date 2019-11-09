@@ -85,8 +85,6 @@ io.on('connection', (socket) => {
   }, 100 + Math.random() * 2400);
 });
 
-// TODO: Add the logic of spawning
-// TODO: Send info to scoreboard(s)
 
 app.use(express.static('dist'));
 
