@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 2rem;
+  
+  font-family: 'Luckiest Guy', cursive;
+  color: var(--brown-dark);
+  line-height: 1;
+  background-color: var(--green);
+  box-sizing: border-box;
+}
+table { font-size: 7vw; margin: auto; border-collapse: collapse; }
+thead { border-bottom: solid 0.125em var(--brown-dark); }
+td,th { padding: 0.5rem; }
+td:nth-child(1), th:nth-child(1) { text-align: left; padding-right: 2rem; }
+td:nth-child(2), th:nth-child(2) { text-align: right; padding-left: 2rem; }
+
+.fade{
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 10rem;
+  background: linear-gradient(to bottom, transparent, var(--green));
+  z-index: 1;
+}
