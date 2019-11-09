@@ -75,6 +75,8 @@ ioPlay.on('connection', (socket) => {
         default:      points =  0; break;
       }
 
+      if(score + points < 0) points = -score; // prevent negative scores
+
       if(points){
         hole.smashedBy.push(socket.id);
         game.players[socket.id].score += points;
