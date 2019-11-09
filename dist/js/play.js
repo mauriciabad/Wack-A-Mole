@@ -23,11 +23,13 @@ function smash(event) {
 
   socket.emit('smash', holeNumber);
 
-  holeContentElement.classList.remove('hole__img--active');
-  holeContentElement.classList.add('hole__img--smashed');
-  setTimeout(() => {
-    holeContentElement.classList.remove('hole__img--smashed');
-  }, 200);
+  if(holeContentElement){
+    holeContentElement.classList.remove('hole__img--active');
+    holeContentElement.classList.add('hole__img--smashed');
+    setTimeout(() => {
+      holeContentElement.classList.remove('hole__img--smashed');
+    }, 200);
+  }
 }
 
 function spawnContent({holeNumber, content, duration}) {
