@@ -49,9 +49,13 @@ io.on('connection', (socket) => {
         default:      points =  0; break;
       }
 
-      hole.smashedBy.push(socket.id);
-
-      socket.emit('variateScore', points);
+      if(points){
+        hole.smashedBy.push(socket.id);
+        game.players[socket.id].score += points;
+        
+        socket.emit('variateScore', points);
+        socket.broadcast.emit('score', toSortedArray(players))
+      }
     }
   });
 
@@ -66,12 +70,19 @@ io.on('connection', (socket) => {
     let holeNumber = Math.floor(Math.random() * 9);
     let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
     let duration = 500 + Math.random() * 1000;
+    let hole = game.holes[holeNumber];
+
+    if(hole.content !== 'none'){
+      hole = { content, smashedBy: [] };
+    
+      socket.broadcast.emit('spawn', {holeNumber, content, duration})
   
-    game.holes[holeNumber] = { content, smashedBy: [] };
+      setTimeout(() => {
+        hole = { content: 'none', smashedBy: [] };
+      }, duration);
+    }
   
-    socket.broadcast.emit('spawn', {holeNumber, content, duration})
-  
-  }, 500 + Math.random() * 2000);
+  }, 100 + Math.random() * 2400);
 });
 
 // TODO: Add the logic of spawning
@@ -84,3 +95,10 @@ const port = process.env.PORT || 3000;
 http.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+
+
+
+function toSortedArray(players) {
+  return Object.values(players).sort((a, b) => a.score.localeCompare(b.score));
+}
