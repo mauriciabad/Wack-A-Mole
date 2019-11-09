@@ -35,7 +35,7 @@ body {
   position: relative;
 
   background-color: var(--brown-dark);
-  border: solid 0.75rem var(--brown);
+  border: solid 0.5rem var(--brown);
   border-radius: 100%;
   transition: filter 300ms ease-out;
 }
