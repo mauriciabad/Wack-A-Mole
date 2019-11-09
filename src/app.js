@@ -52,7 +52,7 @@ ioPlay.on('connection', (socket) => {
 
   game.players[socket.id] = {
     score: 0,
-    username: `Player ${game.players.lenght + 1}`,
+    username: `Player ${game.players.length + 1}`,
   };
 
   updateScoreboard();
