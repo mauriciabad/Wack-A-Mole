@@ -17,6 +17,7 @@ socket.on('variateScore', variateScore);
 
 
 function smash(event) {
+  e.preventDefault();
   let holeNumber = event.currentTarget.dataset.holenumber;
   let holeContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > .hole__img--active`);
 
