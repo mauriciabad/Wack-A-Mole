@@ -37,11 +37,12 @@ body {
   background-color: var(--brown-dark);
   border: solid 0.75rem var(--brown);
   border-radius: 100%;
+  transition: filter 300ms ease-out;
 }
 .hole__img {
   opacity: 0;
   transform: scale(0.5) translateY(15%);
-  transition: transform 200ms ease-out, opacity 200ms ease-out;
+  transition: transform 100ms ease-out, opacity 100ms ease-out;
 
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;

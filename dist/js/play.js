@@ -6,7 +6,6 @@ const scoreElement = document.getElementById('score');
 const username = prompt('Enter a username', 'Player') || 'Player';
 socket.emit('username', username);
 
-// Add listeners
 document.querySelectorAll('.hole').forEach(hole => {
   hole.addEventListener('mousedown', smash);
   hole.addEventListener('touchstart', smash);
@@ -28,7 +27,7 @@ function smash(event) {
     holeContentElement.classList.add('hole__img--smashed');
     setTimeout(() => {
       holeContentElement.classList.remove('hole__img--smashed');
-    }, 200);
+    }, 100);
   }
 }
 
@@ -39,7 +38,7 @@ function spawnContent({holeNumber, content, duration}) {
   
   setTimeout(() => {
     holeContentElement.classList.remove('hole__img--active');
-  }, duration - 200);
+  }, duration - 100);
 }
 
 function variateScore(points) {

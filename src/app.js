@@ -1,3 +1,4 @@
+/* - - - - Inicializalize variables - - - - */
 const express = require('express');
 const path    = require('path');
 const app     = express();
@@ -20,13 +21,32 @@ const game = {
     { content: 'none', smashedBy: [] },
   ],
   players: {
-    // 'testUserId': {
-    //   score: 0,
-    //   username: 'Player',
-    // }
+    // 'exampleUserId': { score: 0, username: 'Player' }
   }
 };
 
+/* - - - - Game spawning logic - - - - */
+for (let i = 0; i < 3; i++) {
+
+  setInterval(() => {
+    let holeNumber = Math.floor(Math.random() * 9);
+    let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
+    let duration = 300 + Math.random() * 700;
+    
+    if(game.holes[holeNumber].content === 'none'){
+      game.holes[holeNumber] = { content, smashedBy: [] };
+    
+      ioPlay.emit('spawn', {holeNumber, content, duration});
+      
+      setTimeout(() => {
+        game.holes[holeNumber] = { content: 'none', smashedBy: [] };
+      }, duration);
+    }
+  }, 100 + Math.random() * 2400);
+
+}
+
+/* - - - - Player logic - - - - */
 ioPlay.on('connection', (socket) => {
   console.log(`${socket.id} joined the game`);
 
@@ -66,13 +86,14 @@ ioPlay.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`${socket.id} (${game.players[socket.id].username}) left the game`);
+    console.log(`${socket.id} left the game (${game.players[socket.id].username})`);
 
     delete game.players[socket.id];
     updateScoreboard();
   });
 });
 
+/* - - - - Scoreboard logic - - - - */
 ioScoreboard.on('connection', (socket) => {
   console.log(`${socket.id} joined the scoreboard`);
 
@@ -83,24 +104,8 @@ ioScoreboard.on('connection', (socket) => {
   });
 });
 
-setInterval(() => {
-  let holeNumber = Math.floor(Math.random() * 9);
-  let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
-  let duration = 500 + Math.random() * 1000;
 
-  if(game.holes[holeNumber].content === 'none'){
-    game.holes[holeNumber] = { content, smashedBy: [] };
-  
-    ioPlay.emit('spawn', {holeNumber, content, duration});
-
-    setTimeout(() => {
-      game.holes[holeNumber] = { content: 'none', smashedBy: [] };
-    }, duration);
-  }
-
-}, 100 + Math.random() * 2400);
-
-
+/* - - - - Server logic - - - - */
 app.use(express.static('dist'));
 
 const port = process.env.PORT || 3000;
@@ -111,7 +116,7 @@ http.listen(port, () => {
 
 
 
-
+/* - - - - Functions - - - - */
 function updateScoreboard() {
   ioScoreboard.emit('score', toSortedArray(game.players));
 }
