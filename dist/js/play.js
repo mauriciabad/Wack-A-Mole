@@ -1,6 +1,6 @@
 const socket = io();
 
-const score = 0;
+var score = 0;
 const scoreElement = document.getElementById('score');
 
 const username = prompt('Enter a username', 'Unnamed player');
