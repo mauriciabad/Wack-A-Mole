@@ -1,10 +1,10 @@
-const socket = io('/play');
-
 var score = 0;
 const scoreElement = document.getElementById('score');
 
 const username = prompt('Enter a username', '') || 'Player';
 socket.emit('username', username);
+
+const socket = io('/play');
 
 document.querySelectorAll('.hole').forEach(hole => {
   hole.addEventListener('mousedown', smash);
