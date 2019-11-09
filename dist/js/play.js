@@ -8,8 +8,8 @@ socket.emit('username', username);
 
 // Add listeners
 document.querySelectorAll('.hole').forEach(hole => {
-  hole.addEventListener('mousedown', sendSmash);
-  hole.addEventListener('touchstart', sendSmash);
+  hole.addEventListener('mousedown', smash);
+  hole.addEventListener('touchstart', smash);
 });
 
 socket.on('spawn', spawnContent);
@@ -17,10 +17,17 @@ socket.on('variateScore', variateScore);
 
 
 
-function sendSmash(event) {
+function smash(event) {
   let holeNumber = event.currentTarget.dataset.holenumber;
+  let holeContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > .hole__img--active`);
+
   socket.emit('smash', holeNumber);
-  despawnContent(holeNumber);
+
+  holeContentElement.classList.remove('hole__img--active');
+  holeContentElement.classList.add('hole__img--smashed');
+  setTimeout(() => {
+    holeContentElement.classList.remove('hole__img--smashed');
+  }, 200);
 }
 
 function spawnContent({holeNumber, content, duration}) {
@@ -30,14 +37,7 @@ function spawnContent({holeNumber, content, duration}) {
   
   setTimeout(() => {
     holeContentElement.classList.remove('hole__img--active');
-  }, duration);
-}
-
-function despawnContent(holeNumber) {
-  let allHoleContentElements = document.querySelectorAll(`[data-holeNumber='${holeNumber}'] > [data-content]`);
-  allHoleContentElements.forEach((holeContentElement) => {
-    holeContentElement.classList.remove('hole__img--active');
-  });
+  }, duration - 200);
 }
 
 function variateScore(points) {

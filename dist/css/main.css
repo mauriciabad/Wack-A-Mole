@@ -47,7 +47,7 @@ body {
 .hole__img {
   opacity: 0;
   transform: scale(0.5) translateY(15%);
-  transition: transform 300ms ease-out, opacity 300ms ease-out;
+  transition: transform 200ms ease-out, opacity 200ms ease-out;
 
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -57,6 +57,9 @@ body {
 .hole__img--active {
   opacity: 1;
   transform: scale(1) translateY(0);
+}
+.hole__img--smashed {
+  transform: scale(0.5) translateY(15%) rotate(720deg) !important;
 }
 
 /* --- Scores --- */
