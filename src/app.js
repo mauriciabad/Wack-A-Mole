@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
         game.players[socket.id].score += points;
         
         socket.emit('variateScore', points);
-        socket.broadcast.emit('score', toSortedArray(players))
+        // socket.broadcast.emit('score', toSortedArray(players))
       }
     }
   });
@@ -70,15 +70,14 @@ io.on('connection', (socket) => {
     let holeNumber = Math.floor(Math.random() * 9);
     let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
     let duration = 500 + Math.random() * 1000;
-    let hole = game.holes[holeNumber];
 
-    if(hole.content === 'none'){
-      hole = { content, smashedBy: [] };
+    if(game.holes[holeNumber].content === 'none'){
+      game.holes[holeNumber] = { content, smashedBy: [] };
     
       socket.broadcast.emit('spawn', {holeNumber, content, duration})
   
       setTimeout(() => {
-        hole = { content: 'none', smashedBy: [] };
+        game.holes[holeNumber] = { content: 'none', smashedBy: [] };
       }, duration);
     }
   
