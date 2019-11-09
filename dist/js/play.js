@@ -3,7 +3,7 @@ const socket = io('/play');
 var score = 0;
 const scoreElement = document.getElementById('score');
 
-const username = prompt('Enter a username', 'Player') || 'Player';
+const username = prompt('Enter a username', '') || 'Player';
 socket.emit('username', username);
 
 document.querySelectorAll('.hole').forEach(hole => {
