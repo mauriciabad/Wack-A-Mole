@@ -1,0 +1,48 @@
+/* --- Grid & Holes --- */
+.grid {
+  --wide-size: calc(100vh - 8rem);
+  --narrow-size: 100vw;
+
+  width:  var(--wide-size);
+  height: var(--wide-size);
+  max-width:  var(--narrow-size);
+  max-height: var(--narrow-size);
+
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  gap: 1rem;
+
+  padding: 1rem;
+}
+.hole {
+  position: relative;
+
+  background-color: var(--brown-dark);
+  border: solid 0.75rem var(--brown);
+  border-radius: 100%;
+}
+.hole__img {
+  opacity: 0;
+  transform: scale(0.5) translateY(15%);
+  transition: transform 200ms ease-out, opacity 200ms ease-out;
+
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  padding: 0.75rem;
+  object-fit: contain;
+}
+.hole__img--active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.hole__img--smashed {
+  transform: scale(0.5) translateY(15%) rotate(720deg) !important;
+}
+
+/* --- Scores --- */
+.score {
+  font-size: 6rem;
+  color: var(--brown-dark);
+  line-height: 1;
+}
+.score__small { font-size: 0.6667em; }
