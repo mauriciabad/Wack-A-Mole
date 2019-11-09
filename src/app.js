@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
     let duration = 500 + Math.random() * 1000;
     let hole = game.holes[holeNumber];
 
-    if(hole.content !== 'none'){
+    if(hole.content === 'none'){
       hole = { content, smashedBy: [] };
     
       socket.broadcast.emit('spawn', {holeNumber, content, duration})
