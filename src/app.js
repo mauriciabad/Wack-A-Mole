@@ -4,6 +4,9 @@ const app     = express();
 const http    = require('http').createServer(app);
 const io      = require('socket.io')(http);
 
+const ioPlay       = io.of('/play');
+const ioScoreboard = io.of('/scoreboard');
+
 const game = {
   holes: [
     { content: 'none', smashedBy: [] },
@@ -19,21 +22,24 @@ const game = {
   players: {
     // 'testUserId': {
     //   score: 0,
-    //   username: 'Unnamed player',
+    //   username: 'Player',
     // }
   }
 };
 
-io.on('connection', (socket) => {
+ioPlay.on('connection', (socket) => {
   console.log(`${socket.id} joined the game`);
 
   game.players[socket.id] = {
     score: 0,
-    username: 'Unnamed player',
+    username: 'Player',
   };
+
+  updateScoreboard();
 
   socket.on('username', (username) => {
     game.players[socket.id].username = username;
+    updateScoreboard();
   });
 
   socket.on('smash', (holeNumber) => {
@@ -54,7 +60,7 @@ io.on('connection', (socket) => {
         game.players[socket.id].score += points;
         
         socket.emit('variateScore', points);
-        // socket.broadcast.emit('score', toSortedArray(players))
+        updateScoreboard();
       }
     }
   });
@@ -63,26 +69,36 @@ io.on('connection', (socket) => {
     console.log(`${socket.id} (${game.players[socket.id].username}) left the game`);
 
     delete game.players[socket.id];
+    updateScoreboard();
   });
-
-
-  setInterval(() => {
-    let holeNumber = Math.floor(Math.random() * 9);
-    let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
-    let duration = 500 + Math.random() * 1000;
-
-    if(game.holes[holeNumber].content === 'none'){
-      game.holes[holeNumber] = { content, smashedBy: [] };
-    
-      socket.broadcast.emit('spawn', {holeNumber, content, duration})
-  
-      setTimeout(() => {
-        game.holes[holeNumber] = { content: 'none', smashedBy: [] };
-      }, duration);
-    }
-  
-  }, 100 + Math.random() * 2400);
 });
+
+ioScoreboard.on('connection', (socket) => {
+  console.log(`${socket.id} joined the scoreboard`);
+
+  socket.emit('score', toSortedArray(game.players));
+
+  socket.on('disconnect', () => {
+    console.log(`${socket.id} left the scoreboard`);
+  });
+});
+
+setInterval(() => {
+  let holeNumber = Math.floor(Math.random() * 9);
+  let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
+  let duration = 500 + Math.random() * 1000;
+
+  if(game.holes[holeNumber].content === 'none'){
+    game.holes[holeNumber] = { content, smashedBy: [] };
+  
+    ioPlay.emit('spawn', {holeNumber, content, duration});
+
+    setTimeout(() => {
+      game.holes[holeNumber] = { content: 'none', smashedBy: [] };
+    }, duration);
+  }
+
+}, 100 + Math.random() * 2400);
 
 
 app.use(express.static('dist'));
@@ -96,6 +112,10 @@ http.listen(port, () => {
 
 
 
+function updateScoreboard() {
+  ioScoreboard.emit('score', toSortedArray(game.players));
+}
+
 function toSortedArray(players) {
-  return Object.values(players).sort((a, b) => a.score.localeCompare(b.score));
+  return Object.values(players).sort((a, b) => b.score - a.score);
 }

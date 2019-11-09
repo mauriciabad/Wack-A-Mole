@@ -1,9 +1,9 @@
-const socket = io();
+const socket = io('/play');
 
 var score = 0;
 const scoreElement = document.getElementById('score');
 
-const username = prompt('Enter a username', 'Unnamed player');
+const username = prompt('Enter a username', 'Player');
 socket.emit('username', username);
 
 // Add listeners
