@@ -1,6 +1,5 @@
 /* - - - - Inicializalize variables - - - - */
 const express = require('express');
-const path    = require('path');
 const app     = express();
 const http    = require('http').createServer(app);
 const io      = require('socket.io')(http);
@@ -25,6 +24,7 @@ const game = {
   }
 };
 
+
 /* - - - - Game spawning logic - - - - */
 for (let i = 0; i < 3; i++) {
 
@@ -45,6 +45,7 @@ for (let i = 0; i < 3; i++) {
   }, 100 + Math.random() * 3100);
 
 }
+
 
 /* - - - - Player logic - - - - */
 ioPlay.on('connection', (socket) => {
@@ -98,6 +99,7 @@ ioPlay.on('connection', (socket) => {
   });
 });
 
+
 /* - - - - Scoreboard logic - - - - */
 ioScoreboard.on('connection', (socket) => {
   console.log(`${socket.id} joined the scoreboard`);
@@ -118,7 +120,6 @@ const port = process.env.PORT || 3000;
 http.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
-
 
 
 /* - - - - Functions - - - - */
