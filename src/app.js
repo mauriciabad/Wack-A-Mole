@@ -102,6 +102,14 @@ ioScoreboard.on('connection', (socket) => {
   });
 });
 
+function updateScoreboard() {
+  ioScoreboard.emit('score', toSortedArray(game.players));
+}
+
+function toSortedArray(players) {
+  return Object.values(players).sort((a, b) => b.score - a.score);
+}
+
 
 /* - - - - Server logic - - - - */
 app.use(express.static('dist'));
@@ -111,13 +119,3 @@ const port = process.env.PORT || 3000;
 http.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
-
-
-/* - - - - Functions - - - - */
-function updateScoreboard() {
-  ioScoreboard.emit('score', toSortedArray(game.players));
-}
-
-function toSortedArray(players) {
-  return Object.values(players).sort((a, b) => b.score - a.score);
-}
