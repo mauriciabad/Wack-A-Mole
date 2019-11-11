@@ -33,8 +33,8 @@ setSpawner();
 
 function setSpawner() {
   let holeNumber = Math.floor(Math.random() * 9);
-  let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
-  let duration = 300 + Math.random() * 900;
+  let content    = (Math.random() > 0.3) ? 'mole' : 'bunny';
+  let duration   = 300 + Math.random() * 900;
   
   if(game.holes[holeNumber].content === 'none'){
     game.holes[holeNumber] = { content, smashedBy: [] };
