@@ -68,6 +68,8 @@ ioPlay.on('connection', (socket) => {
     let hole = game.holes[holeNumber];
     
     if(!hole.smashedBy.includes(socket.id)){
+      hole.smashedBy.push(socket.id);
+      
       let points = 0;
 
       switch(hole.content){
@@ -83,7 +85,6 @@ ioPlay.on('connection', (socket) => {
       }
 
       if(points){
-        hole.smashedBy.push(socket.id);
         game.players[socket.id].score += points;
         
         socket.emit('variateScore', points);
@@ -91,6 +92,7 @@ ioPlay.on('connection', (socket) => {
       }
     }
   });
+  // Checks if the player 
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} left the game (${game.players[socket.id].username})`);
