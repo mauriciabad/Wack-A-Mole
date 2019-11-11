@@ -1,6 +1,5 @@
 const socket = io('/play');
 
-var score = 0;
 const scoreElement = document.getElementById('score');
 
 const username = prompt('Enter a username', '');
@@ -12,7 +11,7 @@ document.querySelectorAll('.hole').forEach(hole => {
 });
 
 socket.on('spawn', spawnContent);
-socket.on('variateScore', variateScore);
+socket.on('score', displayScore);
 
 
 
@@ -42,7 +41,6 @@ function spawnContent({holeNumber, content, duration}) {
   }, duration - 100);
 }
 
-function variateScore(points) {
-  score += points;
+function displayScore(score) {
   scoreElement.textContent = score;
 }

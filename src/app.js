@@ -20,8 +20,9 @@ const game = {
     { content: 'none', smashedBy: [] },
   ],
   players: {
-    // 'exampleUserId': { score: 0, username: 'Player' }
-  }
+    // 'exampleUserId': { score: 0, username: 'Player' },
+  },
+  points: { mole: +1, bunny: -3, none:  0 }
 };
 
 
@@ -69,30 +70,17 @@ ioPlay.on('connection', (socket) => {
     
     if(!hole.smashedBy.includes(socket.id)){
       hole.smashedBy.push(socket.id);
+
+      let oldScore = game.players[socket.id].score;
+      let newScore = Math.max(0, oldScore + game.points[hole.content]);
       
-      let points = 0;
-
-      switch(hole.content){
-        case 'mole':  points = +1; break;
-        case 'bunny': points = -3; break;
-        case 'none':  points =  0; break;
-        default:      points =  0; break;
-      }
-
-      // prevent negative scores
-      if(game.players[socket.id].score + points < 0) {
-        points = -game.players[socket.id].score; 
-      }
-
-      if(points){
-        game.players[socket.id].score += points;
-        
-        socket.emit('variateScore', points);
+      if(newScore !== oldScore) {
+        game.players[socket.id].score = newScore;
+        socket.emit('score', newScore);
         updateScoreboard();
       }
     }
   });
-  // Checks if the player 
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} left the game (${game.players[socket.id].username})`);
