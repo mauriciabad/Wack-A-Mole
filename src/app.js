@@ -26,26 +26,27 @@ const game = {
 
 
 /* - - - - Game spawning logic - - - - */
-for (let i = 0; i < 3; i++) {
+setSpawner();
+setSpawner();
+setSpawner();
 
-  setInterval(() => {
-    let holeNumber = Math.floor(Math.random() * 9);
-    let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
-    let duration = 300 + Math.random() * 900;
+function setSpawner() {
+  let holeNumber = Math.floor(Math.random() * 9);
+  let content = (Math.random() > 0.3) ? 'mole' : 'bunny';
+  let duration = 300 + Math.random() * 900;
+  
+  if(game.holes[holeNumber].content === 'none'){
+    game.holes[holeNumber] = { content, smashedBy: [] };
+  
+    ioPlay.emit('spawn', {holeNumber, content, duration});
     
-    if(game.holes[holeNumber].content === 'none'){
-      game.holes[holeNumber] = { content, smashedBy: [] };
-    
-      ioPlay.emit('spawn', {holeNumber, content, duration});
-      
-      setTimeout(() => {
-        game.holes[holeNumber] = { content: 'none', smashedBy: [] };
-      }, duration);
-    }
-  }, 100 + Math.random() * 3100);
+    setTimeout(() => {
+      game.holes[holeNumber] = { content: 'none', smashedBy: [] };
+    }, duration);
+  }
 
+  setTimeout(setSpawner, 100 + Math.random() * 3100);
 }
-
 
 /* - - - - Player logic - - - - */
 ioPlay.on('connection', (socket) => {
