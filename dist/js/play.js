@@ -1,6 +1,6 @@
 const socket = io('/play');
 
-const scoreElement = document.getElementById('score');
+const scoreElement = document.querySelector('#score');
 
 const username = prompt('Enter a username', '');
 if(username) socket.emit('username', username);
@@ -17,16 +17,17 @@ socket.on('score', displayScore);
 
 function smash(event) {
   event.preventDefault();
-  let holeNumber = event.currentTarget.dataset.holenumber;
-  let holeContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > .hole__img--active`);
+  let holeElement = event.currentTarget;
+  let holeNumber  = holeElement.dataset.holenumber;
+  let holeActiveContentElement = holeElement.querySelector('.hole__img--active');
 
   socket.emit('smash', holeNumber);
 
-  if(holeContentElement){
-    holeContentElement.classList.remove('hole__img--active');
-    holeContentElement.classList.add('hole__img--smashed');
+  if(holeActiveContentElement){
+    holeActiveContentElement.classList.remove('hole__img--active');
+    holeActiveContentElement.classList.add('hole__img--smashed');
     setTimeout(() => {
-      holeContentElement.classList.remove('hole__img--smashed');
+      holeActiveContentElement.classList.remove('hole__img--smashed');
     }, 100);
   }
 }
