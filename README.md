@@ -1,4 +1,4 @@
-# Wack-A-Mole-Multiplayer
+# Wack A Mole Multiplayer
 
 Slides for the workshop: https://slides.com/maurici/wmole
 
