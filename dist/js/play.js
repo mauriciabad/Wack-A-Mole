@@ -1,7 +1,5 @@
 const socket = io('/play');
 
-const scoreElement = document.querySelector('#score');
-
 const username = prompt('Enter a username', '');
 if(username) socket.emit('username', username);
 
@@ -10,20 +8,26 @@ document.querySelectorAll('.hole').forEach(hole => {
   hole.addEventListener('touchstart', smash);
 });
 
-socket.on('spawn', spawnContent);
+socket.on('spawn', displaySpawn);
 socket.on('score', displayScore);
 
 
 
 function smash(event) {
   event.preventDefault();
-  let holeElement = event.currentTarget;
-  let holeNumber  = holeElement.dataset.holenumber;
-  let holeActiveContentElement = holeElement.querySelector('.hole__img--active');
 
+  let holeNumber = event.currentTarget.dataset.holenumber;
+  
   socket.emit('smash', holeNumber);
+  
+  displaySmash(holeNumber);
+}
 
-  if(holeActiveContentElement){
+/* - - - Display UI changes - - - */
+
+function displaySmash(holeNumber) {
+  let holeActiveContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > .hole__img--active`);
+  if (holeActiveContentElement) {
     holeActiveContentElement.classList.remove('hole__img--active');
     holeActiveContentElement.classList.add('hole__img--smashed');
     setTimeout(() => {
@@ -32,7 +36,7 @@ function smash(event) {
   }
 }
 
-function spawnContent({holeNumber, content, duration}) {
+function displaySpawn({holeNumber, content, duration}) {
   let holeContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > [data-content='${content}']`);
   
   holeContentElement.classList.add('hole__img--active');
@@ -43,5 +47,5 @@ function spawnContent({holeNumber, content, duration}) {
 }
 
 function displayScore(score) {
-  scoreElement.textContent = score;
+  document.querySelector('#score').textContent = score;
 }
