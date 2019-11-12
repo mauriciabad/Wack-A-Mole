@@ -1,19 +1,33 @@
-/* --- Body --- */
+/* - - - - - - Shared - - - - - - */
+:root {
+  --green: #73B46E;
+  --brown: #957863;
+  --brown-dark: #403532;
+}
 body {
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
+  color: var(--brown-dark);
+  line-height: 1;
+  margin: 0 auto;
 
+  font-family: 'Luckiest Guy', cursive;
+  background-color: var(--green);
+  box-sizing: border-box;
+}
+
+
+
+/* - - - - - - Play - - - - - - */
+.body--play{
+  height: 100vh;
+  overflow: hidden;
+  
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-
-  font-family: 'Luckiest Guy', cursive;
-  background-color: var(--green);
+  
   cursor: url(../img/hammer.cur), auto;
   user-select: none;
-  box-sizing: border-box;
 }
 /* --- Grid & Holes --- */
 .grid {
@@ -74,3 +88,51 @@ body {
   line-height: 1;
 }
 .score__small { font-size: 0.6667em; }
+
+
+
+/* - - - - - - Scoreboard - - - - - - */
+.body--scoreboard { padding: 2rem; }
+table { font-size: 7vw; margin: auto; border-collapse: collapse; }
+thead { border-bottom: solid 0.125em var(--brown-dark); }
+td,th { padding: 0.5rem; }
+td:nth-child(1), th:nth-child(1) { text-align: left; padding-right: 2rem; }
+td:nth-child(2), th:nth-child(2) { text-align: right; padding-left: 2rem; }
+.fade{
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 10rem;
+  background: linear-gradient(to bottom, transparent, var(--green));
+  z-index: 1;
+}
+
+
+
+/* - - - - - - Index - - - - - - */
+.body--index {
+  height: 100vh;
+  max-width: 40rem;
+  padding: 1rem;
+  overflow: hidden;
+
+  display: grid;
+  grid-template: 1fr 2fr / 1fr;
+  gap: 1rem;
+
+  user-select: none;
+}
+
+a {
+  background: var(--brown);
+  box-shadow: 0 1rem 0 var(--brown-dark);
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  
+  font-size: 3rem;
+  color: #fff;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
