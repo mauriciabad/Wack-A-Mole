@@ -1,3 +1,5 @@
 # Wack-A-Mole-Multiplayer
 
-https://wmole.herokuapp.com/
+Slides for the workshop: https://slides.com/maurici/wmole
+
+Try it here: https://wmole.herokuapp.com/
