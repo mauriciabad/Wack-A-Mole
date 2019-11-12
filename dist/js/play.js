@@ -24,7 +24,6 @@ function smash(event) {
 }
 
 /* - - - Display UI changes - - - */
-
 function displaySmash(holeNumber) {
   let holeActiveContentElement = document.querySelector(`[data-holeNumber='${holeNumber}'] > .hole__img--active`);
   if (holeActiveContentElement) {
